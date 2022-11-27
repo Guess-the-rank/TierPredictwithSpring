@@ -485,12 +485,12 @@
 </head>
 <body>
 <form th:action="@{/user/video_upload}" method="post">
-    <a href="__init__.html" class="headerTitle">GuessTheRank Valorant</a>
+    <a sec:authorize="isAnonymous()" th:href="@{/}" class="headerTitle">GuessTheRank Valorant</a>
 
     <div class="indexfont">
-        <div class="section_btn"><a href="Tierpredict1.html"> 게임 시작 </a></div>
-        <div class="section_btn"><a href="video_upload.html"> 동영상 올리기 </a></div>
-        <div class="section_btn"><a href="result.html">동영상 목록</a></div>
+        <div class="section_btn"><a sec:authorize="isAnonymous()" th:href="@{/user/TierPredict1}"> 게임 시작 </a></div>
+        <div class="section_btn"><a sec:authorize="isAnonymous()" th:href="@{/user/video_upload}"> 동영상 올리기 </a></div>
+        <div class="section_btn"><a sec:authorize="isAnonymous()" th:href="@{/user/result}">동영상 목록</a></div>
     </div>
     <div>
         <p class="formDesc">Youtube-Link (8-95 sec)</p>

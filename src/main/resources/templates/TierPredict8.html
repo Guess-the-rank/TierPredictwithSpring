@@ -1,10 +1,651 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="function.js"></script>
 
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|ZCOOL+QingKe+HuangYou');
+
+        @font-face {
+            font-family: 'SUIT-Medium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            color: #000;
+            font-family: 'ZCOOL QingKe HuangYou', cursive;
+            box-sizing: border-box;
+        }
+
+        .fn-font {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: #ece7e1;
+        }
+
+        /* 리스트 앞의 동그라미 삭제*/
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            outline: none;
+        }
+
+        .container {
+            width: 1440px;
+            margin: 0 auto;
+        }
+
+        .headers {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center; /*세로 정렬*/
+            justify-content: space-between; /*가로 정렬*/
+        }
+
+        .headers > h2 {
+            margin-left: 20px;
+        }
+
+        .headers > nav {
+            margin-left: 5%;
+            width: 600px;
+            height: 100%;
+        }
+
+        .headers ul {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .headers ul > li {
+            font-size: 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .headertext {
+            margin-left: 30px;
+        }
+
+        /* 드롭다운 버튼 */
+        .dropbtn {
+            background-color: #ece7e1;
+            color: rgb(0, 0, 0);
+            padding: 16px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* 마우스 오버 시 드롭다운 색상 변경 */
+        .dropdown-content a:hover {
+            background-color: #ece7e1
+        }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 드롭다운 콘텐츠가 표시될 때 드롭다운 버튼의 배경색 변경 */
+        .dropdown:hover .dropbtn {
+            background-color: #ece7e1;
+        }
+
+        /* 메인화면 이미지 디자인 */
+        .screen {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            position: relative;
+            width: 100%;
+            height: 250px;
+            margin-top: 10%;
+            margin-left: 10px;
+            margin-right: 10px;
+            display: flex;
+            padding: 10px;
+        }
+
+        .screen img {
+            margin: 25px;
+            -webkit-box-shadow: 5px 5px 15px 5px #000000;
+            box-shadow: 5px 5px 15px 5px #767474;
+            width: 27%;
+            padding: 7px;
+        }
+
+        /* header 부분 */
+        .headerTitle {
+            display: flex;
+            justify-content: center;
+            margin-top: 22px;
+            font-size: 50px;
+            font-family: 'Karla', sans-serif;
+            font-family: 'Source Sans Pro', sans-serif;
+            text-shadow: 3px 2px 3px rgb(255 255 255 / 20%),
+            3px 1px 10px rgb(84 84 84 / 99%), -1px -1px 0 #000,
+            1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+
+        h1 {
+            cursor: pointer;
+        }
+
+        /* 텍스트박스 */
+        .indexfont {
+            text-align: center;
+            background-color: #f9f9f9;
+            position: fixed;
+            width: auto;
+            padding: 0px 15px 0px 15px;
+            margin-top: 80px;
+            margin-left: 16%;
+            border: 1px solid #ebeef1;
+
+            border-radius: 20px;
+        }
+
+        .indexfont div {
+            margin-bottom: 10px;
+        }
+
+        .section_btn {
+            background-color: #f9f9f9;
+
+        }
+
+        .section_btn:hover {
+            background-color: #ddd;
+        }
+
+        .indexfont div a {
+            font-size: 30px;
+            font-family: 'SUIT-Medium';
+        }
+
+        .explan {
+            background-color: #f9f9f9;
+            position: fixed;
+            width: 495px;
+            height: auto;
+            margin-top: 80px;
+            margin-left: 34%;
+            border: 1px solid #ebeef1;
+            padding: 20px 30px 20px 30px;
+            font-family: 'SUIT-Medium';
+            font-size: 30px;
+
+            border-radius: 20px;
+            outline: none;
+            background-color: rgb(226, 201, 201);
+        }
+
+        .buttons {
+            display: flex;
+            margin-top: 5%;
+            justify-content: center;
+        }
+
+        .buttonClass {
+            width: 100px;
+            height: 100px;
+            margin-left: 10px;
+            align-items: center;
+            min-width: min-content;
+            max-width: max-content;
+            cursor: pointer;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Alata', sans-serif;
+        }
+
+        .page-container {
+            width: 100vw;
+            height: 100vh;
+            background: #eff0f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        /* 메인화면 박스 그림자 */
+        .shadow {
+            -webkit-box-shadow: 27px 43px 43px -26px rgba(89, 89, 89, 0.39);
+            -moz-box-shadow: 27px 43px 43px -26px rgba(89, 89, 89, 0.39);
+            box-shadow: 27px 43px 43px -26px rgba(89, 89, 89, 0.39);
+        }
+
+        /*
+                .shadow-light{
+                    -webkit-box-shadow: 45px 45px 104px -33px rgba(38,38,38,0.92);
+                    -moz-box-shadow: 45px 45px 104px -33px rgba(38,38,38,0.92);
+                    box-shadow: 45px 45px 104px -33px rgba(38,38,38,0.92);
+
+                }*/
+
+        /* 로그인 페이지 */
+        .login-form-container {
+
+            background: #f5f5f5;
+            width: 860px;
+            height: 540px;
+            display: flex;
+            flex-direction: row;
+            box-shadow: 10px black;
+            border-radius: 10px;
+
+        }
+
+        .login-form-right-side {
+            width: 50%;
+            border-radius: 10px 0px 0px 10px;
+            padding: 75px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background-image: radial-gradient(ellipse farthest-corner at 0 140%, #5d9dff 0%, #2178ff 70%, #3585ff 70%);
+        }
+
+        .login-form-right-side h1 {
+            color: white;
+            width: 100%;
+            text-align: right;
+            opacity: 0.9;
+
+        }
+
+        .login-form-right-side p {
+            padding-top: 50px;
+            font-size: 12px;
+            text-align: right;
+            opacity: 0.8;
+        }
+
+        .login-form-left-side {
+            width: 50%;
+            border-radius: 0px 10px 10px 0px;
+            display: flex;
+
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            background: rgb(255, 255, 255);
+            background: linear-gradient(287deg, rgba(255, 255, 255, 1) 0%, rgba(243, 244, 244, 1) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+
+        .login-form-left-side .login-top-wrap {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+        }
+
+        .login-form-left-side .login-top-wrap span {
+            color: gray;
+            font-size: 11px;
+            padding-right: 20px;
+
+        }
+
+        .login-form-left-side .login-top-wrap .create-account-btn {
+            background: white;
+            border: 0;
+            width: 85px;
+            height: 35px;
+            font-size: 11px;
+            color: #2178ff;
+            border-radius: 3px;
+
+        }
+
+        .login-input-container {
+            padding-top: 120px;
+            width: 300px;
+        }
+
+        .login-input-container .login-input-wrap {
+            width: 300px;
+            height: 45px;
+            margin-top: 20px;
+            border-radius: 2px;
+            border-bottom: solid 2px #2178ff;
+
+        }
+
+        .login-input-container .login-input-wrap i {
+            color: #2178ff;
+            line-height: 45px;
+        }
+
+        .login-input-container .login-input-wrap input {
+            background: none;
+
+            border: none;
+            line-height: 45px;
+            padding-left: 10px;
+            width: 267px;
+        }
+
+        .login-input-container .login-input-wrap input:focus {
+            outline: none;
+        }
+
+        .login-btn-wrap {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-btn-wrap .login-btn {
+            width: 95px;
+            height: 35px;
+            color: white;
+            border: 0;
+            border-radius: 4px;
+
+            background: rgb(105, 163, 255);
+            background: linear-gradient(162deg, rgba(105, 163, 255, 1) 0%, rgba(43, 125, 254, 1) 50%, rgba(43, 125, 254, 1) 100%);
+        }
+
+        .login-btn-wrap a {
+            margin-top: 10px;
+            text-decoration: none;
+            font-size: 11px;
+            color: gray;
+
+        }
+
+        /* 파일 업로드 디자인 */
+        .fileupload {
+            background-color: #f9f9f9;
+            position: fixed;
+            width: 495px;
+            height: auto;
+            margin-top: 80px;
+            margin-left: 34%;
+            border: 1px solid #ebeef1;
+            padding: 20px 30px 20px 30px;
+            font-family: 'SUIT-Medium';
+            font-size: 20px;
+
+            border-radius: 20px;
+            outline: none;
+            background-color: rgb(226, 201, 201);
+        }
+
+        .videosize {
+            width: 495px;
+            height: 300px;
+            margin-left: 34%;
+        }
+
+        .formInput {
+            margin-top: 2%;
+            margin-left: 40.4%;
+            text-align: center;
+            font-size: 180%;
+            width: 300px;
+            align-self: center;
+            outline: 2px solid black;
+            border-radius: 15px;
+        }
+
+        .formDesc {
+            margin-top: 5%;
+            text-align: center;
+            font-size: 180%;
+        }
+
+        .formSubmit {
+            margin-top: 6%;
+            border-radius: 15px;
+            padding: 5px;
+            font-size: 180%;
+            margin-left: 42.3%;
+        }
+
+        @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            height: 100%;
+            background: url(https://goo.gl/OeVhun) center no-repeat;
+            background-size: cover;
+        }
+
+        .blur-it {
+            filter: blur(4px);
+        }
+
+        a.btn {
+            width: 200px;
+            padding: 18px 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #fff;
+            border-radius: 0;
+            background: #e2525c;
+        }
+
+        .modal-wrapper {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(41, 171, 164, 0.8);
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.25s ease-in-out;
+        }
+
+        .modal-wrapper.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            width: 600px;
+            height: 400px;
+            display: block;
+            margin: 50% 0 0 -300px;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            background: #fff;
+            opacity: 0;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .modal-wrapper.open .modal {
+            margin-top: -200px;
+            opacity: 1;
+        }
+
+        .head {
+            width: 90%;
+            height: 32px;
+            padding: 12px 30px;
+            overflow: hidden;
+            background: #e2525c;
+        }
+
+        .btn-close {
+            font-size: 28px;
+            display: block;
+            float: right;
+            color: #fff;
+        }
+
+        .content {
+            padding: 10%;
+        }
+
+        .good-job {
+            text-align: center;
+            font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+            color: #e2525c;
+        }
+
+        .good-job .fa-thumbs-o-up {
+            font-size: 60px;
+        }
+
+        .good-job h1 {
+            font-size: 45px;
+        }
+
+        .footerbtn {
+            font-family: 'Karla', sans-serif;
+            font-family: 'Source Sans Pro', sans-serif;
+            margin-top: 30%;
+            margin-left: 10%;
+        }
+    </style>
+</head>
+<!-- index.html : 티어 맞추기 화면 -->
+<body>
+<form th:action="@{/user/TierPredict8}" method="post">
+
+    <script>
+        function move1() {
+            location.href = "/user/TierPredict1";
+            return false;
+        }
+
+        function move2() {
+            location.href = "/user/TierPredict2";
+            return false;
+        }
+
+        function move3() {
+            location.href = "/user/TierPredict3";
+            return false;
+        }
+
+        function move4() {
+            location.href = "/user/TierPredict4";
+            return false;
+        }
+
+        function move5() {
+            location.href = "/user/TierPredict5";
+            return false;
+        }
+
+        function move6() {
+            location.href = "/user/TierPredict6";
+            return false;
+        }
+
+        function move7() {
+            location.href = "/user/TierPredict7";
+            return false;
+        }
+
+        function move8() {
+            location.href = "/user/TierPredict8";
+            return false;
+        }
+
+        function move9() {
+            location.href = "/user/TierPredict9";
+            return false;
+        }
+
+        function report() {
+            alert('신고가 접수되었습니다.');
+            return false;
+        }
+    </script>
+
+    <a  class="headerTitle">GuessTheRank Valorant</a>
+
+    <div style="position:fixed; top:300px; left:32%; margin-left: fill; width:100%; height:100%;">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/gQOvvZDNtO0" title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+    </div>
+
+    <div class="buttons">
+        <img class="buttonClass" src="image\iron-removebg-preview.png" style="cursor:pointer" onclick="move1()">
+        <img class="buttonClass" src="image\bronze-removebg-preview.png" style="cursor:pointer" onclick="move2()">
+        <img class="buttonClass" src="image\silver-removebg-preview.png" style="cursor:pointer" onclick="move3()">
+        <img class="buttonClass" src="image\gold-removebg-preview.png" style="cursor:pointer" onclick="move4()">
+        <img class="buttonClass" src="image\platinum-removebg-preview.png" style="cursor:pointer" onclick="move5()">
+        <img class="buttonClass" src="image\diamond-removebg-preview.png" style="cursor:pointer" onclick="move6()">
+        <img class="buttonClass" src="image\green-removebg-preview.png" style="cursor:pointer" onclick="move7()">
+        <img class="buttonClass" src="image\red-removebg-preview.png" style="cursor:pointer" onclick="move8()">
+        <img class="buttonClass" src="image\radiant-removebg-preview.png" style="cursor:pointer" onclick="move9()">
+    </div>
+    <footer style="position: fixed; bottom:0px; left:0px; width:100%; height:30px; line-height: 30px; text-align: center; background-color: #FFF1C0;">
+        <button type="button" class="headerbutton" style="cursor:pointer;margin-right:50px"
+                onclick="location.href ='/user/result'">Video List</a>
+            <button type="button" class="headerbutton" style="cursor:pointer" onclick="report()">Report Video</a>
+    </footer>
+</form>
 </body>
 </html>
