@@ -1,33 +1,18 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>로그인 페이지</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>로그인</h1>-->
-<!--<hr>-->
-
-<!--<form action="/user/login" method="post">-->
-<!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
-
-<!--    <input type="text" name="username" placeholder="이메일 입력해주세요">-->
-<!--    <input type="password" name="password" placeholder="비밀번호">-->
-<!--    <button type="submit">로그인</button>-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
     <link rel="stylesheet" type="text/css" href="mainStyle.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@200&family=Source+Sans+Pro&display=swap"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@200&family=Nanum+Gothic+Coding&family=Source+Sans+Pro&display=swap"
+          rel="stylesheet">
+    <title>Valorant</title>
+    <script src="function.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|ZCOOL+QingKe+HuangYou');
 
@@ -472,43 +457,85 @@
             font-size: 180%;
             margin-left: 42.3%;
         }
+
+        .layerBox {
+            position: absolute;
+            left: 45%;
+            top: 40%;
+            width: auto;
+            height: auto;
+            display: none;
+            border: solid 1px #000000;
+            box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px;
+            z-index: 100;
+            font-family: 'SUIT-Medium';
+            font-size: 20px;
+            border-radius: 2px;
+        }
+
+        .Canclebutton {
+            border: solid 1px #000000;
+            width: auto;
+            height: auto;
+            margin-left: 70%;
+            font-family: 'SUIT-Medium';
+            font-size: 20px;
+        }
     </style>
 </head>
-<!-- Login.html : 로그인 화면 -->
 <body>
-<form action="/user/login" method="post">
-    <div class="page-container">
-        <div class="login-form-container shadow">
-            <div class="login-form-right-side">
-                <div class="top-logo-wrap">
+<form th:action="@{/user/video_upload}" method="post">
+    <a href="__init__.html" class="headerTitle">GuessTheRank Valorant</a>
 
-                </div>
-                <h1>Log In Page</h1>
-            </div>
-            <div class="login-form-left-side">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                <div class="login-top-wrap">
-                    <span>Don't have an account?</span>
-                    <button class="create-account-btn shadow-light" onclick="location.href='/user/signup'">Create
-                        Profile
-                    </button>
-                </div>
-                <div class="login-input-container">
-                    <div class="login-input-wrap input-id">
-                        <i class="far fa-envelope"></i>
-                        <input placeholder="Email" type="text" name="username">
-                    </div>
-                    <div class="login-input-wrap input-password">
-                        <i class="fas fa-key"></i>
-                        <input placeholder="Password" type="password" name="password">
-                    </div>
-                </div>
-                <div class="login-btn-wrap">
-                    <button class="login-btn" type="submit">Login</button>
-                    <a href="#">Forgot password?</a>
-                </div>
-            </div>
-        </div>
+    <div class="indexfont">
+        <div class="section_btn"><a href="Tierpredict1.html"> 게임 시작 </a></div>
+        <div class="section_btn"><a href="video_upload.html"> 동영상 올리기 </a></div>
+        <div class="section_btn"><a href="result.html">동영상 목록</a></div>
+    </div>
+    <div>
+        <p class="formDesc">Youtube-Link (8-95 sec)</p>
+    </div>
+    <div>
+        <input type="text" value="" name="name" class="formInput">
+    </div>
+    <div>
+        <p class="formDesc">Username</p>
+    </div>
+    <div>
+        <input type="text" value="" name="link" class="formInput">
+    </div>
+    <div>
+        <select name="rank" id="rankOptions" form="form" class="formInput">
+            <option value="0">Pick</option>
+            <option value="1">Iron</option>
+            <option value="2">Bronze</option>
+            <option value="3">Silver</option>
+            <option value="4">Gold</option>
+            <option value="5">Platinum</option>
+            <option value="6">Diamond</option>
+            <option value="7">Ascendant</option>
+            <option value="8">Immortal</option>
+            <option value="9">Radiant</option>
+        </select>
+    </div>
+    <div>
+        <button name="status" value="sent" type="submit" class="formSubmit" onclick="inlineLayer()">Send information
+        </button>
+    </div>
+
+    <script>
+        function inlineLayer() {
+            document.getElementById("Pop").style.display = 'inline';
+        }
+
+        function noneLayer() {
+            document.getElementById("Pop").style.display = 'none';
+        }
+    </script>
+
+    <div id="Pop" class="layerBox">
+        완료되었습니다. <br>
+        <button type="button" class="Canclebutton" onclick="noneLayer()">닫기</button>
     </div>
 </form>
 </body>
